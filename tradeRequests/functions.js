@@ -35,20 +35,20 @@ async function asyncPostRequest(url = '', data = {}) {
     return response.json();
 }
 
-export async function sendRequest(){
-    let result = await asyncPostRequest(trade, init)
+ function sendRequest(){
+    let result =  asyncPostRequest(trade, init)
         .then((data) => {
             return data;
         });
-    console.log(result.result.amount);
-    return result
+    // console.log(result.result)
+    return result;
 
 }
 
 
 
-// module.exports = {
-//     sendRequest
-// }
+module.exports = {
+    sendRequest
+}
 
 

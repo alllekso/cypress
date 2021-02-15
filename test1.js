@@ -1,5 +1,11 @@
-import {sendRequest} from './tradeRequests/functions';
-
 require('dotenv').config({path: './.env'});
-// const sendRequest = require('./tradeRequests/functions').sendRequest
-console.log(sendRequest())
+
+// import {sendRequest} from './tradeRequests/functions';
+const sendRequest = require('./tradeRequests/functions').sendRequest
+
+async function run() {
+    let result =  await sendRequest();
+    console.log(result)
+    console.log("test")
+}
+run()
