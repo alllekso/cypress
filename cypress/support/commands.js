@@ -1,3 +1,4 @@
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +24,35 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('putTrade', (price = "10000") => {
+    cy.request({
+        method: 'POST',
+        url: Cypress.env('TRADE'),
+        body: {
+            "method": "order.put_trade",
+            "params": [
+                1,
+                "BTC_USDT",
+                2,
+                "1",
+                price,
+                "0",
+                "0",
+                "",
+                false
+            ],
+            "id": 125
+        }
+    })
+
+})
+
+Cypress.Commands.add('logout', () => {
+    cy.window().its('localStorage')
+        .invoke('removeItem', 'session')
+
+    cy.visit('/login')
+})
+
+

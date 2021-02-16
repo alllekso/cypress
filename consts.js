@@ -12,5 +12,4 @@ export const put_trade = {
         false
     ],
     "id": 125
-
 }
