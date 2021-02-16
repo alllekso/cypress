@@ -1,39 +1,26 @@
-require('dotenv').config({path: './.env'});
-const trade = process.env.TRADE;
-const url = "http://51.195.100.110:18080";
+import {put_trade} from '../../consts'
 
-const body = JSON.stringify({
-    "method": "order.put_trade",
-    "params": [
-        1,
-        "BTC_USDT",
-        2,
-        "1",
-        "45005",
-        "0",
-        "0",
-        "",
-        false
-    ],
-    "id": 125
+const body = JSON.stringify(put_trade)
 
-})
-
-function putTrade() {
-    return cy.request({
-        method: 'POST',
-        url: url,
-        body: body
-    }).then(response => {
-        let jsonResponse = JSON.parse(response.body)
-        return jsonResponse;
+context('Trade Test', () => {
+    before(() => {
+        cy.request({
+            method: 'POST',
+            url: Cypress.env('TRADE'),
+            body: body
+        }).then(r => JSON.parse(r.body).result).as('resp')
     })
-}
 
-describe("First test", () => {
-    it('Send request', () => {
-        putTrade().then(response => {
-            expect(response.result.amount).to.equal("1")
-        })
+
+
+    it('cy.request() - make an XHR request', function() {
+        const newBody = put_trade
+        newBody.params[4] = this.resp.amount
+
+        cy.request({
+            method: 'POST',
+            url: Cypress.env('TRADE'),
+            body: JSON.stringify(newBody)
+        }).then(r => JSON.parse(r.body).result)
     })
 })

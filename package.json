@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "cross-env": "^7.0.3",
-    "cypress": "^6.4.0",
+    "cypress": "^6.5.0",
     "node-fetch": "^2.6.1",
     "process": "^0.11.10",
     "require": "^0.4.4"
